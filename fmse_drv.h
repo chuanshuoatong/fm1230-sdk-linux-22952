@@ -6,12 +6,12 @@
 #include <stdio.h>
 
 /* user define SE_TYPE */
-//#define SE_TYPE_SPI
-#define SE_TYPE_I2C
+#define SE_TYPE_SPI
+//#define SE_TYPE_I2C
 
 #ifdef SE_TYPE_SPI
 //#define DEV_NAME			"/dev/spidev1.0"
-#define DEV_NAME			"/dev/spidev6.0"
+#define DEV_NAME			"/dev/spidev5.2"
 
 #else
 #define DEV_NAME 			"/dev/i2c-7"

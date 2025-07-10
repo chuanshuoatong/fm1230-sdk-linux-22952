@@ -9,9 +9,12 @@
 #include <linux/spi/spidev.h>
 #include <linux/i2c-dev.h>
 #include <linux/i2c.h>
+#include <errno.h>
 
 int fd = -1;
 int gpio_fd = -1;
+
+#define SE_TYPE_SPI
 
 void fmse_close(void)
 {
@@ -137,7 +140,7 @@ void se_send_recv(uint8_t *wbuf, uint16_t wlen, uint8_t *rbuf, uint16_t rlen)
 		xfer[0].tx_buf = (unsigned long)wbuf;
 		xfer[0].rx_buf = (unsigned long)NULL;
 		xfer[0].len = wlen;
-		//xfer[0].delay_usecs = mdelay;	//如有需要，可以在发送后，适当增加延时，即Tcmd.
+		xfer[0].delay_usecs = mdelay;	//如有需要，可以在发送后，适当增加延时，即Tcmd.
 		xfer[1].tx_buf = (unsigned long)NULL;
 		xfer[1].rx_buf = (unsigned long)rbuf;
 		xfer[1].len = rlen;
