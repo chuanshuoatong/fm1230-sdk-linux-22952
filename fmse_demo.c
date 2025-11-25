@@ -8,6 +8,8 @@
 #include "fmse_cmd.h"
 #include "fmse_demo.h"
 
+static unsigned char read_id_only = 0;
+
 /*********************** se test ********************************/
 static uint8_t sm2_msg[12] = {
 	0x12,0x34,0x56,0x12,0x34,0x56,0x12,0x34,0x56,0x12,0x34,0x56
@@ -232,7 +234,10 @@ int sm2_demo(void)
 	se_get_devid(rbuf, &rlen);
 	printf("devid_rlen=%d,device_id:\n",rlen);
 	dump_data(rlen,rbuf);
-	
+
+    if (read_id_only)
+        return 0;
+
 	ret = get_uid(rbuf,&rlen);
 	printf("get_uid:%d\n",ret);
 	dump_data(rlen, rbuf);
@@ -559,9 +564,13 @@ int main(int argc, char *argv[])
     char dev_name[32] = {0};
 
     if (argc < 2) {
-        printf("Usage: se_demo /dev/spidevX.Y\n");
+        printf("Usage: se_demo /dev/spidevX.Y [-id]\n");
+        printf("       -id: read chip id only\n");
         return 0;
     }
+
+    if (argv[2] != NULL && (strcmp(argv[2], "-id") == 0))
+        read_id_only = 1;
 
     strncpy(dev_name, argv[1], sizeof("/dev/spidevX.Y"));
 	
