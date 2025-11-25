@@ -11,7 +11,7 @@
 
 #ifdef SE_TYPE_SPI
 //#define DEV_NAME			"/dev/spidev1.0"
-#define DEV_NAME			"/dev/spidev5.2"
+//#define DEV_NAME			"/dev/spidev5.2"
 
 #else
 #define DEV_NAME 			"/dev/i2c-7"

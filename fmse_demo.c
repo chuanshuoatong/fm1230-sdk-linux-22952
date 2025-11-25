@@ -556,10 +556,18 @@ int cmac_demo(void)
 int main(int argc, char *argv[])
 {
 	int ret;
+    char dev_name[32] = {0};
+
+    if (argc < 2) {
+        printf("Usage: se_demo /dev/spidevX.Y\n");
+        return 0;
+    }
+
+    strncpy(dev_name, argv[1], sizeof("/dev/spidevX.Y"));
 	
-	ret = fmse_open(DEV_NAME);
+	ret = fmse_open(dev_name);
 	if (ret < 0){
-		printf("open %s fail\n", DEV_NAME);
+		printf("open %s fail\n", dev_name);
 		return -1;
 	}
 	
