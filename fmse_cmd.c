@@ -1015,6 +1015,8 @@ uint16_t SelectAID(uint8_t *aid,uint16_t aid_len,uint8_t *rbuf,uint16_t *rlen)
 	memmove(wbuf+5, aid, aid_len);
 	wlen += wbuf[4];
 	dump_data(wlen,wbuf);
+    // wbuf = 00,a4,04,00,0c,54,65,6d,70,6f,72,61,72,79,2e,4d,46,
+    // wlen = 17
 	ret = se_transceive(wbuf, wlen, rbuf, rlen, WAIT_SE_TIMEOUT);
 
 	if(!ret){

@@ -132,6 +132,7 @@ void se_send_recv(uint8_t *wbuf, uint16_t wlen, uint8_t *rbuf, uint16_t rlen)
 	xfer[0].tx_buf = (unsigned long)wbuf;
 	xfer[0].rx_buf = (unsigned long)NULL;
 	xfer[0].len = 1;
+    xfer[0].delay_usecs = mdelay;
 	xfer[1].tx_buf = (unsigned long)&wbuf[1];
 	xfer[1].rx_buf = (unsigned long)NULL;
 	xfer[1].len = wlen-1;
@@ -257,7 +258,7 @@ int se_transceive(uint8_t *sbuf, uint16_t slen, uint8_t *rbuf, uint16_t *rlen, i
 		return 13;
 	}
 	
-	recv_len = *rlen+3;
+	recv_len = *rlen+3; // +3 是 recv_buf[0]、recv_buf[1] 以及最后的 Lrc
 	
 	//check lrc
 	Lrc = 0xFF;
